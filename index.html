@@ -141,7 +141,7 @@
             function show(){ans.innerHTML = calc}
             ac.addEventListener('click', function() {calc = "0"; show(); calc=""});
             eq.addEventListener('click', function() {
-                calc = calc.replace(/%/g, "/100").replace(/\(/g, "*").replace(/\)/g, "").replace("*", "");
+                calc = calc.replace(/%/g, "/100").replace(/\(/g, "*").replace(/\)/g, "");//.replace("*", "");
                 calc = eval(calc); 
                 show();calc = "";});
             o.addEventListener('click', function() {if (calc.length != 18){calc += "0";}; show(); console.log(calc.length)});
