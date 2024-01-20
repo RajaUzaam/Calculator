@@ -7,6 +7,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
         integrity="sha512-..." crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.7.1/math.js"></script>
         <title>Calculator</title>
         <style>
             *{
@@ -115,8 +116,11 @@
             </div>
         </section>
         <script>
+            var fn = "";
+            var ln = "";
             var calc = "";
-            var ans = document.getElementById('ans')
+            var oper = "";
+            var ans = document.getElementById('ans');
             var o = document.getElementById('o');
             var i = document.getElementById('i');
             var ii = document.getElementById('ii');
@@ -138,30 +142,39 @@
             var lb = document.getElementById('lb');
             var rb = document.getElementById('rb');
             
-            function show(){ans.innerHTML = calc}
-            ac.addEventListener('click', function() {calc = "0"; show(); calc=""});
-            eq.addEventListener('click', function() {
-                calc = calc.replace(/%/g, "/100").replace(/\(/g, "*").replace(/\)/g, "");//.replace("*", "");
-                calc = eval(calc); 
-                show();calc = "";});
-            o.addEventListener('click', function() {if (calc.length != 18){calc += "0";}; show(); console.log(calc.length)});
-            i.addEventListener('click', function() {if (calc.length != 18){calc += "1";}; show();});
-            ii.addEventListener('click', function() {if (calc.length != 18){calc += "2";}; show();});
-            iii.addEventListener('click', function() {if (calc.length != 18){calc += "3"};; show();});
-            iv.addEventListener('click', function() {if (calc.length != 18){calc += "4";}; show();});
-            v.addEventListener('click', function() {if (calc.length != 18){calc += "5";}; show();});
-            vi.addEventListener('click', function() {if (calc.length != 18){calc += "6";}; show();});
-            vii.addEventListener('click', function() {if (calc.length != 18){calc += "7";}; show();});
-            viii.addEventListener('click', function() {if (calc.length != 18){calc += "8";}; show();});
-            ix.addEventListener('click', function() {if (calc.length != 18){calc += "9";}; show();});
-            add.addEventListener('click', function() {if (calc.length != 18){calc += "+";}; show();});
-            sub.addEventListener('click', function() {if (calc.length != 18){calc += "-";}; show();});
-            div.addEventListener('click', function() {if (calc.length != 18){calc += "/";}; show();});
-            mult.addEventListener('click', function() {if (calc.length != 18){calc += "*";}; show();});
-            dec.addEventListener('click', function() {if (calc.length != 18){calc += ".";}; show();});
-            pert.addEventListener('click', function() {if (calc.length != 18){calc += "%";}; show();});
+            function show(){calc = fn + oper + ln; ans.innerHTML = calc;}
+            function calculate(){
+                if (oper == "+") {calc = Number(fn) + Number(ln)}
+                else if (oper == "-") {calc = Number(fn) - Number(ln)}
+                else if (oper == "*") {calc = Number(fn) * Number(ln)}
+                else if (oper == "/") {calc = Number(fn) / Number(ln)};
+                oper = ""; fn = calc; ln = "";
+            }
+
+
+            ac.addEventListener('click', function() {fn = "0"; ln = ""; oper = ""; show(); fn = ""; calc = "";});
+            eq.addEventListener('click', function() {calculate(); show(); calc = "";});
+            o.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "0"} else {ln += "0"};}; show();});
+            i.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "1"} else {ln += "1"}}; show();});
+            ii.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "2"} else {ln += "2"};}; show();});
+            iii.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "3"} else {ln += "3"}}; show();});
+            iv.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "4"} else {ln += "4"}}; show();});
+            v.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "5"} else {ln += "5"}}; show();});
+            vi.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "6"} else {ln += "6"}}; show();});
+            vii.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "7"} else {ln += "7"}}; show();});
+            viii.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "8"} else {ln += "8"}}; show();});
+            ix.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "9"} else {ln += "9"}}; show();});
+            //=========================================================================================
+            add.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()};
+                oper = "+";}; show();});
+            sub.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()}; oper = "-";}; show();});
+            div.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()}; oper = "/";}; show();});
+            mult.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()}; oper = "*";}; show();});
+            //==========================================================================================
+            dec.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "."} else {ln += "."};}; show();});
+            /*pert.addEventListener('click', function() {if (calc.length != 18){calc += "%";}; show();});
             lb.addEventListener('click', function() {if (calc.length != 18){calc += "(";}; show();});
-            rb.addEventListener('click', function() {if (calc.length != 18){calc += ")";}; show();});
+            rb.addEventListener('click', function() {if (calc.length != 18){calc += ")";}; show();});*/
         </script>
     </body>
 </html>
