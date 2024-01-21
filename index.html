@@ -76,51 +76,58 @@
                 margin-top: 7px;
                 font-size: 40px;
             }
-            .opers {background-color: gray;}
+            .operators {background-color: gray;}
         </style>
     </head>
     <body>
+        <!-- Main HTML Content for the order of the calculator -->
         <section class="main" id="main">
+            <!-- Element for the answer space -->
             <div class="ansSpace">
-            <h4 id="ans" class="text-center">0</h4>
+                <h4 id="ans" class="text-center">0</h4>
             </div>
+            <!-- Elements for all of the buttons, each <div> element represents a row of button -->
             <div class="calcRow">
-                <button class="butStyle opers" id="lb">(</button>
-                <button class="butStyle opers" id="rb">)</button>
-                <button class="butStyle opers" id="pert">%</button>
-                <button class="butStyle opers" style="background-color: orange;" id="ac">AC</button>
+                <button class="butStyle operators" id="lb">(</button>
+                <button class="butStyle operators" id="rb">)</button>
+                <button class="butStyle operators" id="pert">%</button>
+                <button class="butStyle operators" style="background-color: orange;" id="ac">AC</button>
             </div>
             <div class="calcRow">
                 <button class="butStyle" id="vii">7</button>
                 <button class="butStyle" id="viii">8</button>
                 <button class="butStyle" id="ix">9</button>
-                <button class="butStyle opers" id="div">/</button>
+                <button class="butStyle operators" id="div">/</button>
             </div>
             <div class="calcRow">
                 <button class="butStyle" id="iv">4</button>
                 <button class="butStyle" id="v">5</button>
                 <button class="butStyle" id="vi">6</button>
-                <button class="butStyle opers" id="mult">x</button>
+                <button class="butStyle operators" id="multiply">x</button>
             </div>
             <div class="calcRow">
                 <button class="butStyle" id="i">1</button>
                 <button class="butStyle" id="ii">2</button>
                 <button class="butStyle" id="iii">3</button>
-                <button class="butStyle opers" id="sub">-</button>
+                <button class="butStyle operators" id="sub">-</button>
             </div>
             <div class="calcRow">
                 <button class="butStyle" id="o">0</button>
                 <button class="butStyle" id="dec">.</button>
-                <button class="butStyle opers" id="add">+</button>
+                <button class="butStyle operators" id="add">+</button>
                 <button class="butStyle" id="eq" style="background-color: aqua;color: black;">=</button>
             </div>
         </section>
         <script>
+            /*Variables that are used for final Evaluation and to store first, second, and the operator used in 
+            the expression*/
             var fn = "";
             var ln = "";
             var calc = "";
-            var oper = "";
-            var ans = document.getElementById('ans');
+            var operators = "";
+
+            //All of the variables that are linked with each button/element so that they can receive button clicks
+            var ans = document.getElementById('ans'); //Not a button, but the element used to show the answer/expression
             var o = document.getElementById('o');
             var i = document.getElementById('i');
             var ii = document.getElementById('ii');
@@ -133,26 +140,30 @@
             var ix = document.getElementById('ix');
             var add = document.getElementById('add');
             var sub = document.getElementById('sub');
-            var mult = document.getElementById('mult');
+            var multiply = document.getElementById('multiply');
             var div = document.getElementById('div');
             var eq = document.getElementById('eq');
             var dec = document.getElementById('dec');
             var ac = document.getElementById('ac');
-            var pert = document.getElementById('pert');
+            /*var pert = document.getElementById('pert');
             var lb = document.getElementById('lb');
-            var rb = document.getElementById('rb');
+            var rb = document.getElementById('rb');*/
             
-            function show(){calc = fn + oper + ln; ans.innerHTML = calc;}
+
+            //show() function used to show a change in the mathematical expression. Shows it in the ansSpace Element
+            function show(){calc = fn + operators + ln; ans.innerHTML = calc;}
+            //calculate() function to Evaluate/Calculate the answer from the mathematical query/expression given by the user
             function calculate(){
-                if (oper == "+") {calc = Number(fn) + Number(ln)}
-                else if (oper == "-") {calc = Number(fn) - Number(ln)}
-                else if (oper == "*") {calc = Number(fn) * Number(ln)}
-                else if (oper == "/") {calc = Number(fn) / Number(ln)};
-                oper = ""; fn = calc; ln = "";
+                if (operators == "+") {calc = Number(fn) + Number(ln)}
+                else if (operators == "-") {calc = Number(fn) - Number(ln)}
+                else if (operators == "*") {calc = Number(fn) * Number(ln)}
+                else if (operators == "/") {calc = Number(fn) / Number(ln)};
+                operators = ""; fn = calc; ln = "";
             }
 
 
-            ac.addEventListener('click', function() {fn = "0"; ln = ""; oper = ""; show(); fn = ""; calc = "";});
+            //Event listeners that will receive button click and will add the number/symbol to the fn/ln variables, according to the button which was clicked
+            ac.addEventListener('click', function() {fn = "0"; ln = ""; operators = ""; show(); fn = ""; calc = "";});
             eq.addEventListener('click', function() {calculate(); show(); calc = "";});
             o.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "0"} else {ln += "0"};}; show();});
             i.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "1"} else {ln += "1"}}; show();});
@@ -164,14 +175,14 @@
             vii.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "7"} else {ln += "7"}}; show();});
             viii.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "8"} else {ln += "8"}}; show();});
             ix.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "9"} else {ln += "9"}}; show();});
-            //=========================================================================================
-            add.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()};
-                oper = "+";}; show();});
-            sub.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()}; oper = "-";}; show();});
-            div.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()}; oper = "/";}; show();});
-            mult.addEventListener('click', function() {if (calc.length != 18){if(oper != ""){calculate()}; oper = "*";}; show();});
-            //==========================================================================================
             dec.addEventListener('click', function() {if (calc.length != 18){if (fn == ""){fn += "."} else {ln += "."};}; show();});
+
+            //Event listeners that will receive the operator used for the calculation (by a button clicked) and store the operator in the operator variable
+            add.addEventListener('click', function() {if (calc.length != 18){if(operators != ""){calculate()};
+                operators = "+";}; show();});
+            sub.addEventListener('click', function() {if (calc.length != 18){if(operators != ""){calculate()}; operators = "-";}; show();});
+            div.addEventListener('click', function() {if (calc.length != 18){if(operators != ""){calculate()}; operators = "/";}; show();});
+            multiply.addEventListener('click', function() {if (calc.length != 18){if(operators != ""){calculate()}; operators = "*";}; show();});
             /*pert.addEventListener('click', function() {if (calc.length != 18){calc += "%";}; show();});
             lb.addEventListener('click', function() {if (calc.length != 18){calc += "(";}; show();});
             rb.addEventListener('click', function() {if (calc.length != 18){calc += ")";}; show();});*/
